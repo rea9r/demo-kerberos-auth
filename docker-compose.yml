@@ -1,0 +1,36 @@
+services:
+  kerberos-kdc:
+    build:
+      context: ./kerberos-kdc
+      dockerfile: Dockerfile
+    container_name: kerberos-kdc
+    hostname: kerberos-kdc
+    ports:
+      - "749:749"
+      - "88:88/udp"
+
+  kerberos-client:
+    build:
+      context: ./kerberos-client
+      dockerfile: Dockerfile
+    container_name: kerberos-client
+    hostname: kerberos-client
+    stdin_open: true
+    tty: true
+    depends_on:
+      - kerberos-kdc
+
+  kerberos-service1:
+    build:
+      context: ./kerberos-service
+      dockerfile: Dockerfile
+    container_name: kerberos-service1
+    hostname: kerberos-service1
+    ports:
+      - "2222:22"
+    depends_on:
+      - kerberos-kdc
+
+networks:
+  kerberos-net:
+    driver: bridge
