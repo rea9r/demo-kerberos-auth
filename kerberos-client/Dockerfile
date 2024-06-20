@@ -1,7 +1,7 @@
 FROM centos:7.9.2009
 
 RUN yum -y update
-RUN yum -y install openssh-server krb5-workstation vim
+RUN yum -y install openssh-server openssh-clients krb5-workstation vim
 RUN yum -y clean all
 
 # locale
