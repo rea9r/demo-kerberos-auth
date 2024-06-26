@@ -9,23 +9,23 @@ services:
       - "749:749"
       - "88:88/udp"
 
-  kerberos-client:
+  client-server:
     build:
-      context: ./kerberos-client
+      context: ./client-server
       dockerfile: Dockerfile
-    container_name: kerberos-client
-    hostname: kerberos-client
+    container_name: client-server
+    hostname: client-server
     stdin_open: true
     tty: true
     depends_on:
       - kerberos-kdc
 
-  kerberos-service1:
+  service-server:
     build:
-      context: ./kerberos-service
+      context: ./service-server
       dockerfile: Dockerfile
-    container_name: kerberos-service1
-    hostname: kerberos-service1
+    container_name: service-server
+    hostname: service-server
     ports:
       - "2222:22"
     depends_on:
